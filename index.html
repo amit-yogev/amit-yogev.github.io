@@ -112,6 +112,7 @@ section{padding:clamp(56px,8vw,96px) 0}
 .ph .n{background:#1e293b;border-radius:10px;padding:7px 8px;font-size:11px;color:#e2e8f0;text-align:left;line-height:1.3}
 .ph .n b{color:#67e8f9;display:block;font-size:11px}
 .ph .t{font:700 22px Inter;color:#fff;text-align:center;margin:2px 0 4px}
+.live{margin-top:22px}.live video{display:block;width:100%;border-radius:16px;border:1px solid var(--line);background:#000}.live p{margin:8px 0 0;font-size:.9em;color:var(--mut)}
 .demo{margin-top:22px;border:1px solid var(--line);border-radius:16px;background:var(--card2);padding:clamp(16px,2.5vw,24px)}
 .dh{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 16px;align-items:baseline}
 .dh b{font-size:17px}
@@ -250,6 +251,12 @@ footer{border-top:1px solid var(--line);padding:30px 16px;text-align:center;colo
    <div class="body">
     <h3>IntentCircuit – Sandbox-Escape Detection for AI Coding Agents</h3>
     <p>Sandboxes like Docker are not 100% isolated: in 2026, AI coding agents escaped them through steps that were each allowed on their own. IntentCircuit is a smart layer above the sandbox that checks agents stay inside their environment. Its key idea: instead of judging each action alone, it remembers what the agent prepared earlier (<code>.vscode/tasks.json</code>, Git hooks, CI workflows) and catches the moment it tries to use it to escape, an angle I did not find in existing open-source agent guardrails.</p>
+    <div class="live">
+     <video controls muted playsinline preload="metadata" poster="IntentCircuit_thumbnail.png" aria-label="Live demo: a real Claude Code agent is blocked by IntentCircuit">
+      <source src="IntentCircuit_demo.mp4" type="video/mp4">
+     </video>
+     <p>Live run: a real Claude Code agent follows a poisoned README, and IntentCircuit blocks the escape before it runs (41 seconds).</p>
+    </div>
     <div class="demo" id="demo" aria-label="Interactive demo of IntentCircuit">
      <div class="dh"><b>Try it: one agent run, checked step by step</b><span>Illustration of the escape-detection flow</span></div>
      <ol class="steps" id="steps"></ol>
