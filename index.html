@@ -236,7 +236,7 @@ footer{border-top:1px solid var(--line);padding:30px 16px;text-align:center;colo
     <div>
      <div class="k">AI AGENTS · PYTHON</div>
      <div class="big">Intent<span>Circuit</span></div>
-     <div class="s">Checks every action of a coding agent and stops it from escaping its sandbox.</div>
+     <div class="s">Docker isn't 100% isolated. IntentCircuit is a smart layer above it that checks AI coding agents stay inside their environment, and blocks escape attempts before they run.</div>
     </div>
     <div class="flow" aria-label="How IntentCircuit works">
      <div class="node tag">Sits above Docker &amp; permissions</div>
@@ -249,9 +249,9 @@ footer{border-top:1px solid var(--line);padding:30px 16px;text-align:center;colo
    </div>
    <div class="body">
     <h3>IntentCircuit – Sandbox-Escape Detection for AI Coding Agents</h3>
-    <p>Docker and permission allowlists check each action alone, so an allowed file write or an allowed <code>git</code> command can still be used to escape, as in publicly reported 2026 escapes from coding agents. IntentCircuit sits above them and reasons about the agent's intent across actions. It targets indirect escapes, where the agent writes a file the host later runs (<code>.vscode/tasks.json</code>, Git hooks, CI workflows), a gap I did not find covered by existing open-source agent guardrails.</p>
+    <p>Sandboxes like Docker are not 100% isolated: in 2026, AI coding agents escaped them through steps that were each allowed on their own. IntentCircuit is a smart layer above the sandbox that checks agents stay inside their environment. Its key idea: instead of judging each action alone, it remembers what the agent prepared earlier (<code>.vscode/tasks.json</code>, Git hooks, CI workflows) and catches the moment it tries to use it to escape, an angle I did not find in existing open-source agent guardrails.</p>
     <div class="demo" id="demo" aria-label="Interactive demo of IntentCircuit">
-     <div class="dh"><b>Try it: one agent run, checked step by step</b><span>Illustration of the escape-detection flow in development</span></div>
+     <div class="dh"><b>Try it: one agent run, checked step by step</b><span>Illustration of the escape-detection flow</span></div>
      <ol class="steps" id="steps"></ol>
      <div class="meter"><span>Risk</span><div class="bar"><i id="needle"></i></div><span class="score" id="score">0 / 100</span></div>
      <div class="verdict" id="verdict">Press play to watch IntentCircuit judge each action with what the agent already did.</div>
@@ -260,10 +260,11 @@ footer{border-top:1px solid var(--line);padding:30px 16px;text-align:center;colo
     <ul style="color:var(--mut);margin:14px 0 0;padding-left:20px">
      <li>Core Python engine scores each action sequence 0–100 and decides ALLOW, WARN, human APPROVAL or BLOCK, with a reason in plain words and a JSON audit report</li>
      <li>Agent policy in an external JSON file; fail-closed on unknown actions and malformed input</li>
-     <li>17/17 pytest tests passing, every change goes through a pull request with automated CI</li>
+     <li><b style="color:var(--ink)">Live test:</b> a real Claude Code agent followed a poisoned README and tried to plant a Git hook; IntentCircuit blocked the command before it ran</li>
+     <li>Benchmark of 45 cases: 13/13 documented escapes stopped vs. 0/13 for a name-only allowlist; 3/9 on held-out cases, with every miss reported</li>
+     <li>134 pytest tests; every change goes through a pull request with automated CI</li>
     </ul>
-    <p class="note"><b style="color:var(--ink)">In development:</b> argument-level command checks, tracking of agent-written trigger files, a live hook into a real coding agent, and a benchmark against documented escape techniques.</p>
-    <div class="tags"><span>Python</span><span>pytest</span><span>AI Agents</span><span>JSON</span><span>Git</span><span>GitHub</span><span>Sandbox security</span></div>
+    <div class="tags"><span>Python</span><span>pytest</span><span>AI Agents</span><span>JSON</span><span>Git</span><span>GitHub</span><span>Sandbox security</span><span>Claude Code hooks</span></div>
     <div class="lnk"><a class="pri" href="https://github.com/amit-yogev/intent-circuit">Source Code →</a></div>
    </div>
   </article>
